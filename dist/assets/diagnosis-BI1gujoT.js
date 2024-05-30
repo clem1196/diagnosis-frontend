@@ -1,4 +1,4 @@
-import{g as tt}from"./diagnosis-CRcBmpFS.js";import{E as nt}from"./index-C1H3axYu.js";/*!
+import{g as tt}from"./diagnosis-BY6fq7PN.js";import{E as nt}from"./index-Ce-3ACET.js";/*!
  * @kurkle/color v0.3.2
  * https://github.com/kurkle/color#readme
  * (c) 2023 Jukka Kurkela
