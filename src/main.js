@@ -1,6 +1,6 @@
 import "./assets/main.css"
 
-import "bootstrap"
+import "../node_modules/bootstrap"
 
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import "../node_modules/bootstrap-icons/font/bootstrap-icons.min.css"
