@@ -24,5 +24,5 @@ export default defineConfig({
   ],
 
   }, 
-  base:"./dist/assets/index-CVSMxwhM.js"
+  base:"./"
 })
