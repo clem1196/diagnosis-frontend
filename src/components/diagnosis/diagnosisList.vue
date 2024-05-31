@@ -214,10 +214,10 @@ import diagnosisPatientDetail from "../diagnosis/diagnosisPatientDetail.vue";
 import diagnosisPatientList from "../diagnosis/diagnosisPatientList.vue";
 import { onMounted, reactive, ref } from "vue";
 import type { _diagnosis } from "../../interfaces/interface";
-import { getDiagnosis } from "@/data/diagnosis";
+import { getDiagnosis } from "../../data/diagnosis"
 import { useRoute } from "vue-router";
 import router from "@/router";
-import { fieldPatient, fieldResult } from "@/validation/diagnosis";
+import { fieldPatient, fieldResult } from "../../validation/diagnosis";
 //import DiagnosisGraphics from "./diagnosisGraphics.vue";
 
 const props = defineProps({
