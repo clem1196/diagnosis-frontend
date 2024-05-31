@@ -1,4 +1,4 @@
-import "./assets/main.css"
+import "./assets/generics.css"
 
 import "bootstrap"
 
