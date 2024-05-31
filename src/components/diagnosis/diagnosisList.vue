@@ -17,7 +17,7 @@
           <div class="card card-body">
             <!--patient-->
             <div v-if="$route.params.name === undefined" class="col-auto">
-              <label class="" for="patient">Paciente</label>
+              <label for="patient">Paciente</label>
               <input
                 v-model="dataObject.patient"
                 type="text"
@@ -39,7 +39,7 @@
             </div>
             <!--Sex-->
             <div v-if="$route.params.name === undefined" class="col-auto">
-              <label class="" for="Sex">Género</label>
+              <label  for="Sex">Género</label>
               <select
                 v-model="dataObject.sex"
                 class="form-select select-size"
@@ -52,7 +52,7 @@
 
             <!--test-->
             <div class="col-auto">
-              <label class="" for="test">Test</label>
+              <label  for="test">Test</label>
               <select
                 v-model="dataObject.test"
                 class="form-select select-size"
@@ -73,7 +73,7 @@
             </div>
             <!--result-->
             <div class="col-auto">
-              <label class="" for="result">Result</label>
+              <label  for="result">Result</label>
               <input
                 @click="_validData"
                 v-model="dataObject.result"
@@ -97,7 +97,7 @@
             </div>
             <!--condition-->
             <div v-if="$route.params.id !== undefined" class="col-auto">
-              <label class="" for="condition">Condición</label>
+              <label  for="condition">Condición</label>
               <select
                 v-model="dataObject.condition"
                 class="form-select select-size"
@@ -109,7 +109,7 @@
             </div>
             <!--observation-->
             <div class="col-auto">
-              <label class="" for="observation">Observación</label>
+              <label  for="observation">Observación</label>
               <textarea
                 v-model="dataObject.observation"
                 type="text"
