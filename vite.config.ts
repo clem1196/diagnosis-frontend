@@ -14,5 +14,5 @@ export default defineConfig({
       
     }
     }, 
-  base:"/diagnosis-frontend/"
+  base:"https://clem1196.github.io/diag-repo/"
 })
