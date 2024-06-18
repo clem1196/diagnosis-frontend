@@ -1,4 +1,5 @@
 #/dist
+.htaccess
 node_modules
 *.log
 !production.log
