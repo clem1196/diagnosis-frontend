@@ -14,8 +14,6 @@ export default defineConfig({
       
     }
     },
-    base:'/#/',
-    
-    
+    base:'/#/'   
   
 })
