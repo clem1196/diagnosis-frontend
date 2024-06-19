@@ -4,8 +4,11 @@
     <div class="row m-1">
       <div class="col-3">
         <!--form-->
-        <diagnosisPatientList></diagnosisPatientList>
-        <form @submit.prevent="add_edit_Diagnosis" @keyup="_validData">
+        <diagnosisPatientList v-if="$route.params.name === undefined"></diagnosisPatientList>
+
+        <a v-if="$route.params.name !== undefined" href="/diagnosis" class="col-1 icon-arrow" @click="cleanForm()"
+          title="Salir"><i class="bi-arrow-left-square-fill"></i></a>
+        <form @submit.prevent="add_edit_Diagnosis">
           <div class="card card-title">
             <!--Title-->
             <div v-if="$route.params.id !== undefined">Editar Diagnosis</div>
@@ -14,23 +17,15 @@
             </div>
             <div v-else>Crear Diagnosis</div>
           </div>
-          <div class="card card-body">
+          <div class="card card-body" @keyup="_validData">
             <!--patient-->
             <div v-if="$route.params.name === undefined" class="col-auto">
               <label for="patient">Paciente</label>
-              <input
-                v-model="dataObject.patient"
-                type="text"
-                class="form-control input-size"
-                id="patient"
-              />
-              <small
-                v-if="
-                  fields.validatePatient === '' ||
-                  fields.validatePatient === 'Opcional'
-                "
-                class="text-alert-optional"
-              >
+              <input v-model="dataObject.patient" type="text" class="form-control input-size" id="patient" />
+              <small v-if="
+                fields.validatePatient === '' ||
+                fields.validatePatient === 'Opcional'
+              " class="text-alert-optional">
                 {{ fields.validatePatient }}
               </small>
               <small v-else class="text-alert-error">{{
@@ -39,12 +34,8 @@
             </div>
             <!--Sex-->
             <div v-if="$route.params.name === undefined" class="col-auto">
-              <label  for="Sex">Género</label>
-              <select
-                v-model="dataObject.sex"
-                class="form-select select-size"
-                id="Sex"
-              >
+              <label for="Sex">Género</label>
+              <select v-model="dataObject.sex" class="form-select select-size" id="Sex">
                 <option value="M">M</option>
                 <option value="F">F</option>
               </select>
@@ -52,43 +43,34 @@
 
             <!--test-->
             <div class="col-auto">
-              <label  for="test">Test</label>
-              <select
-                v-model="dataObject.test"
-                class="form-select select-size"
-                id="test"
-              >
-                <option
-                  v-if="$route.params.name !== undefined"
-                  v-for="t in arrayTest.values"
-                  :key="t"
-                  :value="t"
-                >
+              <label for="test">Test</label>
+              <select v-model="dataObject.test" class="form-select select-size" id="test">
+                <option v-if="$route.params.name !== undefined" v-for="t in arrayTest.values" :key="t" :value="t">
                   {{ t }}
                 </option>
                 <option v-else v-for="t in arrayTest" :value="t">
                   {{ t }}
                 </option>
-              </select>
+              </select>              
+              <small v-if="
+                dataObject.test === '' ||
+                dataObject.test.length === 0 ||
+                dataObject.test === undefined
+              " class="text-alert-error">
+                Requerido
+              </small>
+              <small v-else class="text-alert-optional"></small>
             </div>
             <!--result-->
             <div class="col-auto">
-              <label  for="result">Result</label>
-              <input
-                @click="_validData"
-                v-model="dataObject.result"
-                type="text"
-                class="form-control input-size"
-                id="result"
-              />
-
-              <small
-                v-if="
-                  fields.validateResult === '' ||
-                  fields.validateResult === 'Opcional'
-                "
-                class="text-alert-optional"
-              >
+              <label for="result">Result</label>
+              <input @click="_validData" v-model="dataObject.result" type="text" class="form-control input-size"
+                id="result" />
+              
+              <small v-if="
+                fields.validateResult === '' ||
+                fields.validateResult === 'Opcional'
+              " class="text-alert-optional">
                 {{ fields.validateResult }}
               </small>
               <small v-else class="text-alert-error">{{
@@ -97,88 +79,56 @@
             </div>
             <!--condition-->
             <div v-if="$route.params.id !== undefined" class="col-auto">
-              <label  for="condition">Condición</label>
-              <select
-                v-model="dataObject.condition"
-                class="form-select select-size"
-                id="condition"
-              >
+              <label for="condition">Condición</label>
+              <select v-model="dataObject.condition" class="form-select select-size" id="condition">
                 <option value="activo">Activo</option>
                 <option value="inactivo">Inactivo</option>
               </select>
             </div>
             <!--observation-->
             <div class="col-auto">
-              <label  for="observation">Observación</label>
-              <textarea
-                v-model="dataObject.observation"
-                type="text"
-                class="form-control input-size"
-                id="observation"
-                placeholder=""
-              />
-              <small
-                v-if="
-                  dataObject.observation !== null &&
-                  dataObject.observation.length > 2083
-                "
-                class="text-alert-error"
-              >
+              <label for="observation">Observación</label>
+              <textarea v-model="dataObject.observation" type="text" class="form-control input-size" id="observation"
+                placeholder="" />
+              <small v-if="
+                dataObject.observation !== null &&
+                dataObject.observation.length > 2083
+              " class="text-alert-error">
                 No se aceptan mas caracteres
               </small>
             </div>
           </div>
 
-          <div class="card card-footer">
-            <button
-              v-if="$route.params.id !== undefined"
-              type="submit"
-              class="btn btn-save m-2"
-            >
+          <!--Editar-->
+          <div v-if="$route.params.id !== undefined" class="card card-footer">
+            <button type="submit" class="btn btn-save m-2">
               Actualizar
             </button>
-            <button
-              v-else-if="$route.params.name !== undefined"
-              type="submit"
-              class="btn btn-save m-2"
-            >
-              Agregar
-            </button>
-            <button v-else type="submit" class="btn btn-save m-2">Crear</button>
-            <a
-              v-if="$route.params.name !== undefined"
-              href="/diagnosis"
-              class="btn btn-secondary"
-              >Terminar</a
-            >
-            <button
-              v-if="$route.params.id !== undefined"
-              @click="returnBack"
-              class="btn btn-light"
-            >
+            <button v-if="$route.params.id !== undefined" @click="returnBack" class="btn btn-light">
               Cancelar
             </button>
-            <a
-              v-if="$route.params.id === undefined"
-              href="/diagnosis"
-              class="btn btn-light"
-              >Cancelar</a
-            >
+          </div>
+          <!--Agregar-->
+          <div v-else-if="$route.params.name !== undefined" class="card card-footer">
+            <button v-if="dataObject.result === '0.0'||dataObject.result === '.0'|| dataObject.result === '0.'||  dataObject.result === '0'||isNumber(dataObject.result)===false" disabled type="submit"
+              class="btn btn-save m-2">
+              Agregar
+            </button>
+            <button v-else type="submit" class="btn btn-save m-2">
+              Agregar
+            </button>
+          </div>
+          <!--Crear-->
+          <div v-else class="card card-footer">
+            <button type="submit" class="btn btn-save m-2">Crear</button>
+            <a href="/diagnosis" class="btn btn-light m-2" @click="cleanForm()">Cancelar</a>
           </div>
         </form>
 
-        <p
-          v-if="message.success.length > 0"
-          class="alert alert-success mt-2"
-          role="alert"
-        >
+        <p v-if="message.success.length > 0" class="alert alert-success mt-2" role="alert">
           <i class="bi-check-circle-fill m-1"></i>{{ message.success }}
         </p>
-        <p
-          v-if="message.warning.length > 0"
-          class="alert alert-warning mt-2"
-          role="alert"
-        >
+        <p v-if="message.warning.length > 0" class="alert alert-warning mt-2" role="alert">
           <i class="bi-exclamation-triangle-fill m-1"></i>{{ message.warning }}
         </p>
         <p v-if="message.err.length > 0" class="alert alert-danger mt-2">
@@ -186,21 +136,14 @@
         </p>
       </div>
       <div class="col-9">
-        <p
-          v-if="
-            $route.params.name === undefined && $route.params.id === undefined
-          "
-          class="myp"
-        >
+        <p v-if="
+          $route.params.name === undefined && $route.params.id === undefined
+        " class="myp">
           Crea un diagnóstico
         </p>
         <!--Detail for patient-->
-        <diagnosisPatientDetail
-          v-if="$route.params.name !== undefined"
-        ></diagnosisPatientDetail>
-        <diagnosisGraphics
-          v-if="$route.params.name != undefined"
-        ></diagnosisGraphics>
+        <diagnosisPatientDetail v-if="$route.params.name !== undefined"></diagnosisPatientDetail>
+        <diagnosisGraphics v-if="$route.params.name != undefined"></diagnosisGraphics>
       </div>
     </div>
     <!--LIST for details-->
@@ -218,6 +161,7 @@ import { getDiagnosis } from "../../data/diagnosis"
 import { useRoute } from "vue-router";
 import router from "@/router";
 import { fieldPatient, fieldResult } from "../../validation/diagnosis";
+import { isNumber } from "chart.js/helpers";
 //import DiagnosisGraphics from "./diagnosisGraphics.vue";
 
 const props = defineProps({
@@ -282,19 +226,23 @@ const add_edit_Diagnosis = async () => {
       if (res?.statusText === "Created") {
         message.success = res.data.Message;
         message.err = "";
-        console.log(res.data.results.patient)
-        location.replace(`/diagnosis/${res.data.results.patient}`);
+        setTimeout(async () => {
+          message.success = "";
+          location.replace(`/diagnosis/${res.data.results.patient}`);
+        }, 1500);
+
         //router.back()
       }
     } else if (route.params.name !== undefined) {
       let res = await addDiagnosis(dataObject);
       if (res?.statusText === "Created") {
         message.success = res.data.Message;
+        message.err = "";
         setTimeout(() => {
           message.success = "";
+          location.reload();
         }, 1500);
-        message.err = "";
-        location.replace("/diagnosis/" + route.params.name);
+
       }
     } else {
       let res = await editDiagnosis(route.params.id, dataObject);
@@ -303,7 +251,7 @@ const add_edit_Diagnosis = async () => {
         message.err = "";
         router.back();
       } else {
-        console.log("no hubo cambios");       
+        console.log("no hubo cambios");
         message.warning = "Modifique algo o presione cancelar";
       }
     }
@@ -390,6 +338,19 @@ const _getDiagnosis = async () => {
     }
   }
 };
+const cleanForm = async () => {
+  dataObject.patient = ""
+  dataObject.sex = "F"
+  dataObject.test = "LDH/DHL"
+  dataObject.result = "0.0"
+  dataObject.treatment = "0.0"
+  dataObject.condition = "activo"
+  dataObject.observation = ""
+  message.success = ""
+  message.err = ""
+  message.warning = ""
+  await _validData()
+}
 const returnBack = () => {
   router.back();
 };

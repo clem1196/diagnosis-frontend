@@ -20,10 +20,10 @@
               <a class="nav-link my-focus" id="home" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link my-focus" id="about" href="#/about">About</a>
+              <a class="nav-link my-focus" id="about" href="/about">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link my-focus" id="modules" href="#/diagnosis">diagnosis</a>
+              <a class="nav-link my-focus" id="modules" href="/diagnosis">diagnosis</a>
             </li>
           </ul>
           <div v-if="loggedIn == true" class="d-flex myFlex">

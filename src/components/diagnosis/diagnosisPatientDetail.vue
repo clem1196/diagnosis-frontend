@@ -329,7 +329,7 @@ const color_td = async () => {
       element.textContent === "Saludable" ||
       element.textContent === "Normal"
     ) {
-      element.setAttribute("style", "background-color: #4CAF50; color:white;");
+      element.setAttribute("style", "background-color: 4CAF50; color:white;");
     }
 
     if (
@@ -339,20 +339,20 @@ const color_td = async () => {
       element.textContent === "Alto"||
       element.textContent === "Severo"
     ) {
-      element.setAttribute("style", "background-color: #FF9800; color:white;");
+      element.setAttribute("style", "background-color: FF9800; color:white;");
     }
     if (
       element.textContent === "Peligro inicial" ||
       element.textContent === "Peligro final"||
       element.textContent === "Muy alto"
     ) {
-      element.setAttribute("style", "background-color: #FF5722; color:white;");
+      element.setAttribute("style", "background-color: FF5722; color:white;");
     }
     if (element.textContent === "Leve" || element.textContent === "Moderado") {
-      element.setAttribute("style", "background-color: #CDDC39 ; color:white;");
+      element.setAttribute("style", "background-color: CDDC39 ; color:white;");
     }
     if (element.textContent === "Leve" || element.textContent === "Moderado") {
-      element.setAttribute("style", "background-color: #CDDC39 ; color:white;");
+      element.setAttribute("style", "background-color: CDDC39 ; color:white;");
     }
   }
 

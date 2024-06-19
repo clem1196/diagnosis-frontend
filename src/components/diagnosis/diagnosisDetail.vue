@@ -34,7 +34,7 @@
           type="button"
           class="btn btn-sm btn-save mt-2"
           data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
+          data-bs-target="staticBackdrop"
         >
           Editar
         </button>

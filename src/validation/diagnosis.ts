@@ -40,7 +40,7 @@ export const fieldPatient = async (patient: undefined | string) => {
 export const fieldResult = async (result: undefined | string) => {
   if (result === undefined || result.length === 0) {
     return "Requerido";
-  } else if (!isNumber(parseFloat(result))) {
+  } else if (!isNumber(result)) {
     return "Ingrese un número válido.";
   } else {
     return "";
